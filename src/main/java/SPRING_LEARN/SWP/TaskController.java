@@ -62,4 +62,14 @@ public class TaskController {
         }
     }
 
+    @PostMapping("/{id}/start")
+    public ResponseEntity<Task> updateTaskStatusToInProgress(@PathVariable("id") Long id) {
+        log.info("Called updateTaskStatus method with id = " + id);
+        try {
+            taskService.updateTaskStatusToInProgress(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
